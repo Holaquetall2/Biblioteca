@@ -1,0 +1,104 @@
+:root{
+  --topbar-h: 72px; /* mantenla así */
+}
+
+/* ===== TOPBAR ===== */
+.topbar{
+    position: sticky;
+    top: 0;
+    z-index: 1000;                 /* por encima de todo el contenido */
+    background: rgba(17, 24, 39, 0.55); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(148,163,184,.18);
+    color: #fff;
+}
+
+.topbar__inner{
+    height: var(--topbar-h);   /* altura EXACTA */
+    padding: 0 12px;           /* quita padding vertical */
+    display: grid;
+    grid-template-columns: minmax(180px,1fr) auto minmax(180px,1fr);
+    align-items: center;
+    gap: 12px;
+}
+
+.brand{
+  display: flex; gap: 10px; align-items: center;
+  text-decoration: none; color: #fff;
+}
+.brand__logo{ width: 34px; height: 34px; object-fit: cover; border-radius: 8px; }
+.brand__text{ display: flex; flex-direction: column; font-weight: 800; line-height: 1.05; }
+.brand__text small{ font-weight: 400; opacity: .9; margin-top: -2px; }
+
+.topbar__title{
+  margin: 0;
+  text-align: center;
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: .3px;
+
+  /* Si falta espacio, que recorte con “…” */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.topbar__right{
+  justify-self: end;
+  display: flex; gap: 8px; align-items: center;
+  min-width: 0;                     /* permite recorte */
+}
+.user{
+  color:#fff; opacity:.9;
+
+  /* Si el usuario/rol es largo, no invadas el título */
+  max-width: clamp(140px, 26vw, 280px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pill{
+  background: var(--pill);
+  color: var(--pill-text);
+  padding: 6px 10px;
+  border-radius: 10px;
+  border: 0;
+  font-weight: 700;
+  cursor: pointer;
+}
+.pill:hover{ background: var(--pill-hover); }
+
+/* ===== SUBNAV (pestañas por rol) ===== */
+.subnav{ border: 1px solid rgba(148,163,184,.2); background: rgba(2,6,23,.6); backdrop-filter: blur(8px);
+    position: sticky;
+    top: var(--topbar-h);
+    z-index: 1100;
+}
+.subnav__inner{
+  justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 8px 12px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.subnav__link{ border-radius: 999px; border: 1px solid rgba(148,163,184,.18);
+  color: #eaf2ff;
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 10px;
+  opacity: .9;
+}
+.subnav__link:hover{ background: rgba(255,255,255,.12); opacity: 1; }
+.subnav__link.active{ background: rgba(255,255,255,.18); }
+
+
+@media (max-width: 860px){
+  .topbar__inner{
+    height: auto;          /* vuelve a crecer si necesita dos filas */
+    padding: 10px 12px;    /* recupera el padding vertical en mobile */
+  }
+  .subnav{ border: 1px solid rgba(148,163,184,.2); background: rgba(2,6,23,.6); backdrop-filter: blur(8px); top: 0; }       /* y la subnav se pega al tope en mobile */
+}
+
+/* Oculta el link "Inicio" si apunta a "/" */
+.subnav a[href="/"]{ display:none !important; }

@@ -1,0 +1,147 @@
+:root{
+  --white-color: #fff;
+  --title-color: #fff;
+  --text-color: #e8eef6;
+  --body-font: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial;
+
+  /* mismo esquema que login */
+  --pill: #2AA198;
+  --pill-hover:#248E8D;
+  --pill-text:#0E2C2C;
+}
+
+/* ===== Layout ===== */
+.Register{
+  min-height: calc(100dvh - 84px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 32px 16px 48px;
+}
+
+.Register__form{
+  width: min(520px, 92vw);
+  color: var(--title-color);
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.25);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 2.5rem 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 24px 64px rgba(0,0,0,.35);
+}
+
+.register__title{
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin: 0 0 1rem;
+  text-shadow: 0 2px 8px rgba(0,0,0,.35);
+  letter-spacing: .2px;
+}
+
+/* ===== Campos (labels flotantes) ===== */
+.register__content{
+  display: grid;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.register__box{
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  align-items: center;
+  column-gap: .75rem;
+  padding-bottom: .75rem;
+  border-bottom: 2px solid var(--white-color);
+  position: relative;
+}
+
+.register__icon{
+  font-size: 1.25rem;
+  opacity: .95;
+}
+
+.register__box-input{
+  position: relative;
+  width: 100%;
+}
+
+.register__input{
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--white-color);
+  padding: .5rem 1.8rem .5rem .25rem; /* deja espacio para el ojo */
+  font-size: 1rem;
+  font-family: var(--body-font);
+}
+
+.register__label{
+  position: absolute;
+  left: .25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-color);
+  pointer-events: none;
+  transition: top .25s ease, font-size .25s ease, opacity .25s ease;
+  opacity: .9;
+}
+
+.register__input:focus + .register__label,
+.register__input:not(:placeholder-shown) + .register__label{
+  top: -10px;
+  font-size: .8rem;
+  opacity: .95;
+}
+
+/* Ojo para mostrar/ocultar contraseña */
+.register__eye{
+  position: absolute;
+  right: .25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.1rem;
+  cursor: pointer;
+  opacity: .95;
+}
+
+/* ===== Botón y link a login ===== */
+.register__button{
+  width: 100%;
+  background: var(--pill);
+  color: var(--pill-text);
+  border: none;
+  border-radius: .8rem;
+  padding: .8rem 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .2s ease, transform .05s ease;
+  margin-top: .25rem;
+  margin-bottom: 1rem;
+}
+.register__button:hover{ background: var(--pill-hover); }
+.register__button:active{ transform: translateY(1px); }
+
+.register__login{
+  color: var(--text-color);
+  text-align: center;
+  font-size: .95rem;
+}
+.register__login a{
+  color: var(--white-color);
+  font-weight: 700;
+  text-decoration: none;
+}
+.register__login a:hover{ text-decoration: underline; }
+
+/* ===== Responsive ===== */
+@media screen and (min-width: 576px){
+  .Register{ justify-content: center; }
+  .Register__form{
+    width: 432px;
+    padding: 2.75rem 2rem 2.25rem;
+    border-radius: 1rem;
+  }
+  .register__title{ font-size: 2rem; }
+}

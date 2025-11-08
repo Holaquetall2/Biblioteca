@@ -1,0 +1,242 @@
+:root{
+    --brown-800:#6b3f2b;
+    --maxw:1200px;
+}
+
+/* Reset base */
+*,*::before,*::after{ box-sizing:border-box; }
+html,body,#root{ height:100%; }
+body{
+    margin:0;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    font-family: Poppins, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+    color:#eee;
+    background:#0b0b0b;
+}
+a{ color:inherit; text-decoration:none; }
+img{ max-width:100%; display:block; }
+
+/* App layout */
+.app{ min-height:100%; display:flex; flex-direction:column; }
+main{ flex:1 0 auto; }
+
+/* ================= HEADER ================= */
+/* Sticky SOLO la barra café */
+.topbar{
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--brown-800);
+  color:#fff;
+}
+.topbar__inner{
+  display:grid;
+  grid-template-columns: minmax(180px,1fr) auto minmax(180px,1fr);
+  align-items:center;
+  gap:12px;
+  height:72px;               /* altura exacta */
+  padding:0 12px;
+}
+.brand{ display:flex; align-items:center; gap:10px; color:#fff; }
+.brand__logo{ width:34px; height:34px; border-radius:8px; object-fit:cover; }
+.brand__text{ display:flex; flex-direction:column; font-weight:800; line-height:1.05; }
+.brand__text small{ font-weight:400; opacity:.9; margin-top:-2px; }
+
+.topbar__title{
+  margin:0; text-align:center; font-weight:800; font-size:22px; letter-spacing:.3px;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.topbar__right{ justify-self:end; display:flex; align-items:center; gap:8px; min-width:0; }
+.user{ max-width: clamp(140px,26vw,280px); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.pill{ background:#2AA198; color:#0E2C2C; border:0; border-radius:10px; padding:6px 10px; font-weight:700; cursor:pointer; }
+.pill:hover{ filter:brightness(.95); }
+
+/* ================= SUB-NAV ================= */
+/* Ahora NO es sticky → queda inmediatamente debajo de la barra */
+.subnav{
+  position: relative !important;
+  top: auto !important;
+  z-index: 900;
+  background: rgba(0,0,0,.28);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(255,255,255,.12);
+}
+.subnav__inner{
+  max-width: var(--maxw);
+  margin:0 auto;
+  padding:8px 12px;
+  display:flex; gap:8px; flex-wrap:wrap;
+}
+.subnav__link{
+  color:#eaf2ff; padding:6px 10px; border-radius:10px; opacity:.9;
+}
+.subnav__link:hover{ background: rgba(255,255,255,.12); opacity:1; }
+.subnav__link.active{ background: rgba(255,255,255,.18); }
+
+/* ================= LOGIN/REGISTER ================= */
+/* En acceso no mostramos pestañas y quitamos cualquier offset */
+.access .subnav{ display:none !important; }
+.access main{ padding-top:0 !important; }
+
+/* ================= CONTENT FIXES ================= */
+/* Quita el espacio fantasma sobre el primer bloque del main */
+main{ margin-top:0 !important; padding-top:0 !important; }
+main > section:first-child,
+main > div:first-child,
+main > header:first-child,
+h1:first-child{ margin-top:0 !important; }
+
+
+/* Contenedor común */
+.container{ max-width: var(--maxw); margin:0 auto; padding:12px; }
+
+/* =============== Responsive header =============== */
+@media (max-width: 860px){
+  .topbar__inner{
+    height:auto; padding:10px 12px;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "brand actions"
+      "title title";
+    row-gap:6px;
+  }
+  .brand{ grid-area:brand; }
+  .topbar__title{ grid-area:title; font-size:18px; }
+  .topbar__right{ grid-area:actions; }
+}
+@media (max-width: 520px){
+  .topbar__title{ display:none; }
+}
+
+/* ===== Fondo global (restaurado) ===== */
+.app{
+  position: relative;
+  isolation: isolate;            /* crea su propio stacking-context */
+  min-height: 100%;
+  background-image: url('../assets/Imagenes/logo_fondo.png'); /* tu imagen */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;  /* efecto “anclado” */
+}
+
+/* Overlay de oscurecimiento que NO bloquea clics */
+.app::after{
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;                    /* detrás del contenido real */
+  pointer-events: none;
+  background: radial-gradient(1200px 600px at 50% 50%, rgba(0,0,0,.25), rgba(0,0,0,.55));
+}
+
+/* Todo lo que está dentro de .app queda por encima del overlay */
+.app > *{
+  position: relative;
+  z-index: 1;
+}
+
+
+/* ===== Fondo global unificado para TODAS las páginas ===== */
+:root{
+  --bg-img: url("/src/assets/Imagenes/logo_fondo.png");
+  --bg-color: #0b1220;
+}
+html, body, #root{ height: 100%; }
+body{
+  margin: 0;
+  font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  color: #f1f5f9;
+  background: var(--bg-color) center/cover no-repeat fixed;
+}
+/* capa de marca sobre el color base */
+body::before{
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: var(--bg-img);
+  background-size: 600px auto;
+  background-repeat: no-repeat;
+  background-position: right 2rem bottom 2rem;
+  opacity: .06;
+  pointer-events: none;
+  z-index: 0;
+}
+/* overlay suave oscuro coherente */
+.app::after{
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(1200px 600px at 50% 50%, rgba(0,0,0,.25), rgba(0,0,0,.55));
+}
+
+/* Quitar viñeta global cuando la app tenga la clase 'no-vignette' */
+.app.no-vignette::after{
+  background: none !important;
+}
+
+
+/* Elevar el contenido real sobre los overlays */
+.app > *{ position: relative; z-index: 1; }
+main{ min-height: calc(100vh - 72px); }
+.container{ max-width: 1100px; margin: 0 auto; padding: 1.5rem; }
+h1{ margin: .5rem 0 1rem; font-weight: 700; }
+.btn{ padding: .5rem .9rem; border: 0; border-radius: .6rem; cursor: pointer; }
+.btn--primary{ background: #3b82f6; color: white; }
+.btn--danger{ background: #ef4444; color: white; }
+.btn--ghost{ background: transparent; border: 1px solid #475569; color: #e2e8f0; }
+.input, .select{ background: #0f172a; color: #e2e8f0; border: 1px solid #334155; padding: .55rem .7rem; border-radius: .6rem; }
+.table{ width: 100%; border-collapse: collapse; }
+.table th, .table td{ border-bottom: 1px solid #233045; padding: .6rem .5rem; text-align: left; }
+.table th{ font-weight: 600; color: #cbd5e1; }
+.card{ background: #0a1222; border: 1px solid #1f2937; border-radius: 1rem; overflow: hidden; }
+.card img{ width: 100%; height: 180px; object-fit: cover; display: block; }
+.grid{ display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
+.flex{ display: flex; gap: .5rem; align-items: center; }
+
+.chip{ display:inline-flex; align-items:center; gap:.35rem; padding:.25rem .55rem; border-radius:999px; font-size:.85rem; border:1px solid rgba(148,163,184,.22); background: rgba(2,6,23,.6); }
+.chip--ok{ background: rgba(16,185,129,.15); border-color: rgba(16,185,129,.35); color: #a7f3d0; }
+.chip--warn{ background: rgba(234,179,8,.15); border-color: rgba(234,179,8,.35); color: #fde68a; }
+
+/* ===== UI: tabla con efecto vidrio y badges ===== */
+.table{ width: 100%; border-collapse: collapse; backdrop-filter: blur(6px); background: rgba(7,12,22,.35); border-radius: 14px; overflow: hidden; }
+.table thead th{ background: rgba(255,255,255,.04); }
+.table th, .table td{ border-bottom: 1px solid rgba(52,72,102,.45); padding: .8rem .75rem; }
+.table tr:hover td{ background: rgba(255,255,255,.03); }
+.badge{ display:inline-block; padding:.25rem .6rem; border-radius:999px; font-size:.8rem; font-weight:600; }
+.badge--ok{ background: rgba(34,197,94,.15); color:#34d399; border:1px solid rgba(34,197,94,.35); }
+.badge--warn{ background: rgba(245,158,11,.15); color:#fbbf24; border:1px solid rgba(245,158,11,.35); }
+
+/* ===== Fondo coherente en pantallas de acceso (Login / Register) ===== */
+.access {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  position: relative;
+  isolation: isolate;
+  /* usamos exactamente el mismo fondo que .app */
+  background-image: url('../assets/Imagenes/logo_fondo.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* mismo overlay que el resto */
+.access::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(1200px 600px at 50% 50%, rgba(0,0,0,.25), rgba(0,0,0,.55));
+}
+
+/* el contenido encima del overlay */
+.access > * {
+  position: relative;
+  z-index: 1;
+}

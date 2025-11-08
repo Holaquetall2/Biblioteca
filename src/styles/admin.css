@@ -1,0 +1,8 @@
+export default function Admin(){
+  return (
+    <section className="container">
+      <h1>Gestión de Catálogo</h1>
+      <p>(Vista temporal mientras rearmamos la lógica)</p>
+    </section>
+  )
+}

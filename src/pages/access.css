@@ -1,0 +1,121 @@
+:root{
+    --brown-900:#5a3827;
+    --brown-800:#6b3f2b;
+    --brown-700:#7b4931;
+    --cream-50:#faf6f2;
+    --glass-bg: rgba(255,255,255,.08);
+    --glass-brd: rgba(255,255,255,.25);
+}
+
+
+
+/* Barra superior */
+.access__bar{
+    position: relative;
+    z-index:1;
+    height: 68px;
+    background: var(--brown-800);
+    color: #fff;
+    display: grid;
+    grid-template-columns: 280px 1fr 280px;
+    align-items: center;
+    padding: 0 16px;
+}
+.brand{
+    display:flex; 
+    gap:10px; 
+    align-items:center;
+}
+.brand__logo{
+    width:36px; 
+    height:36px; 
+    display:grid; 
+    place-items:center;
+    font-size: 24px; 
+    background:#fff2; 
+    border-radius:8px;
+}
+.brand__text{
+    line-height:1.05; 
+    font-weight:700;
+    display:flex; 
+    flex-direction:column;
+}
+.access__title{
+    justify-self:center; 
+    font-size:28px; 
+    font-weight:800; 
+    letter-spacing:.3px;
+}
+
+/* Centro */
+.access__center{
+    position:relative; 
+    z-index:1;
+    min-height: calc(100dvh - 68px);
+    display:grid; place-items:center;
+    padding: 24px;
+}
+
+.glass{
+    width: min(520px, 92vw);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-brd);
+    box-shadow: 0 20px 60px rgba(0,0,0,.35);
+    -webkit-backdrop-filter: blur(9px);
+    backdrop-filter: blur(9px);
+    border-radius: 18px;
+    padding: 28px 24px;
+    color: #fff;
+    text-align:center;
+}
+.glass h2{ font-size: 28px; 
+    margin: 4px 0 6px; 
+}
+.glass__subtitle{ opacity:.9; 
+    margin: 0 0 16px; 
+}
+
+.glass__actions{
+    display:flex; 
+    flex-direction:column; 
+    gap:14px; 
+    margin-top:12px;
+}
+.btn{
+    padding: 14px 16px;
+    border: none; border-radius: 14px;
+    background: #fff;
+    color: var(--brown-900);
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 10px 24px rgba(0,0,0,.18);
+    transition: transform .06s ease, box-shadow .2s ease, background .2s ease;
+}
+.btn:hover{ transform: translateY(-1px); 
+    box-shadow: 0 14px 28px rgba(0,0,0,.22); 
+}
+.btn:active{ 
+    transform: translateY(0); 
+}
+
+.btn.role small{ 
+    display:block; 
+    font-weight:600; 
+    color: #553a2d; 
+    opacity:.9; }
+
+@media (min-width: 560px){
+    .glass__actions{ 
+        flex-direction:column; 
+    }
+}
+
+.access{
+    min-height: 100dvh;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    isolation: isolate;
+}
