@@ -1,11 +1,20 @@
-import { STORAGE_KEYS, getItem, setItem } from './storage'
+// src/utils/auth.js
+export async function apiLogin(email) {
+  const res = await fetch("http://localhost:5000/api/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email }),
+  });
 
-export function getSession(){ return getItem(STORAGE_KEYS.SESION, null) }
-export function isLoggedIn(){ return !!getSession() }
-export function hasRole(required = []) {
-  const s = getSession(); if (!s) return false;
-  return required.length ? required.includes(s.rol) : true;
+  const data = await res.json();
+  if (!data.success) {
+    throw new Error(data.message || "Error al iniciar sesión");
+  }
+
+  return data.usuario; // devuelve el usuario desde MongoDB
 }
-export function loginSession(user){ setItem(STORAGE_KEYS.SESION, user) }
-export function logoutSession(){ setItem(STORAGE_KEYS.SESION, null) }
-export function roleLabel(session){ return session?.rol ?? 'Invitado' }
+
+export async function fetchLibros() {
+  const res = await fetch("http://localhost:5000/api/libros");
+  return res.json();
+}

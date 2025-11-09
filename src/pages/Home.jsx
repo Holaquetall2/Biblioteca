@@ -1,14 +1,40 @@
 import React, { useEffect, useState } from "react";
 import "../styles/home.css";
+import { api } from "../utils/api";
 
 export default function Home() {
   const [libros, setLibros] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/libros")
-      .then((res) => res.json())
-      .then((data) => setLibros(data))
-      .catch((err) => console.error("Error cargando libros:", err));
+    let mounted = true;
+    (async () => {
+      try {
+        // Llamada a backend
+        const data = await api.getLibros();
+        // data puede ser { books: [...] } o un array, depende de tu backend.
+        // Intentamos cubrir ambos casos sin tocar el JSX.
+        const librosFromServer = data.books || data.libros || data || [];
+        if (mounted) {
+          // si tu estado se llama 'libros' y setter 'setLibros'
+          if (typeof setLibros === "function") {
+            setLibros(librosFromServer);
+          } else {
+            // si usas otro nombre de estado, intenta asignarlo donde corresponda
+            console.warn(
+              "setLibros no encontrado - adapta el nombre del setter"
+            );
+          }
+        }
+      } catch (err) {
+        console.error("Error cargando libros:", err);
+        // Mantén cualquier estado de error que tu UI utilice:
+        if (typeof setError === "function")
+          setError(err.message || "Error cargando libros");
+      }
+    })();
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   return (
