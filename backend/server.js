@@ -22,3 +22,17 @@ app.use("/api/usuarios", usuariosRoutes);
 // Servidor
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Servidor escuchando en puerto ${PORT}`));
+
+app.post("/api/login", async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const usuario = await Usuario.findOne({ email });
+    if (!usuario) {
+      return res.json({ success: false, message: "Usuario no encontrado" });
+    }
+    // Si no tienes password en la base, por ahora solo valida email
+    res.json({ success: true, usuario });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Error en el servidor" });
+  }
+});
